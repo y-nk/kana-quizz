@@ -30,7 +30,7 @@ export default class Slider extends Component {
 
       <input type="range" id={ name } name={ name }
              defaultValue={ value } min={ min } max={ max } step="1"
-             onInput={ e => this.setState({ value: e.target.value }) } />
+             onInput={ e => this.setState({ value: parseFloat(e.target.value, 10) }) } />
 
       <aside>
         <span>{ value | 0 }</span>

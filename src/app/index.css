@@ -5,6 +5,16 @@
   background: #444;
 }
 
+.jqz:after {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  content: attr(data-watermark);
+
+  color: rgba(255, 255, 255, .5);
+  font-size: 2vmin;
+}
+
 .jqz .controls {
   position: absolute;
   top: 0;

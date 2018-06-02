@@ -17,12 +17,12 @@ export default class Controls extends Component {
     this.componentWillReceiveProps(this.props)
   }
 
-  componentWillReceiveProps({ config }) {
-    this.setState({ config })
+  componentWillReceiveProps({ active, config }) {
+    this.setState({ active, config })
   }
 
-  componentDidUpdate(props, { active }) {
-    if (this.state.active !== active || !equal(this.props.config, this.state.config))
+  componentDidUpdate() {
+    if (this.props.active !== this.state.active || !equal(this.props.config, this.state.config))
       this.props.onUpdate({ active: this.state.active, config: this.state.config })
   }
 
@@ -36,7 +36,7 @@ export default class Controls extends Component {
           <Wheel onClick={ () => this.setState({ settings: !settings, active: false }) } />
         </div>
       
-        <Settings className={ settings ? 'visible' : 'hidden' } config={ config } onUpdate={ config => this.setState({ config }) } />
+        <Settings className={ !active && settings ? 'visible' : 'hidden' } config={ config } onUpdate={ config => this.setState({ config }) } />
       </div>
     )
   }

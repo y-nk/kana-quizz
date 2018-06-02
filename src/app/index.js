@@ -6,6 +6,7 @@ import Grid from '../grid';
 import Controls from '../controls';
 
 const CONFIG = {
+  session: 20,
   bpm: 10,
   reveal: .5,
   hiragana: true,
@@ -96,6 +97,12 @@ export default class App extends Component {
       return;
     
     const array = !syllabs ? this.state.syllabs : []
+
+    if ((this.state.config.session !== 0) && (array.length === this.state.config.session)) {
+      this.setState({ active: false })
+      return;
+    }
+
     this.setState({ syllabs: [...array, this.pick()] })
     
     clearTimeout(this.timer);
@@ -133,11 +140,11 @@ export default class App extends Component {
           syllab = syllabs.slice(-1);
 
     return (
-      <div className="jqz">
+      <div className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' }>
         { active ? <Letter key={ `${ Date.now() }` } syllab={ syllab } reveal={ config.reveal } timeout={ 60000 / config.bpm } /> : null }
         { !active && syllabs.length ? <Grid syllabs={ syllabs } hiragana={ config.hiragana } katakana={ config.katakana } /> : null }
 
-        <Controls config={ config } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
+        <Controls config={ config } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
       </div>
     );
   }

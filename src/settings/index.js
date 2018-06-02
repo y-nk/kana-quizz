@@ -28,11 +28,12 @@ export default class Settings extends Component {
 
   render() {
     const { className } = this.props;
-    const { bpm, reveal, hiragana, katakana, vowels, extended, consonants } = this.state;
+    const { session, bpm, reveal, hiragana, katakana, vowels, extended, consonants } = this.state;
 
     return (
       <div className={ 'settings ' + className }>
-        <Group title="timers">
+        <Group title="settings">
+          <Slider label="Session" value={ session } min={ 0 } max={ 50 } unit="questions" onUpdate={ session => this.setState({ session }) } />
           <Slider label="BPM" value={ bpm } min={ 1 } max={ 60 } unit="BPM" onUpdate={ bpm => this.setState({ bpm }) } />
           <Slider label="Reveal after" value={ reveal * 100 } unit="%" onUpdate={ reveal => this.setState({ reveal: reveal / 100 }) } />
         </Group>
