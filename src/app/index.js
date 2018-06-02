@@ -93,20 +93,34 @@ export default class App extends Component {
   }
 
   componentDidUpdate(props, { active, syllabs }) {
-    if (!this.state.active || (this.state.active === active))
+    // prevent an endless componentDidUpdate<=>setState loop 
+    if (!this.state.active || (this.state.active === active)) {
       return;
+    }
     
-    const array = !syllabs ? this.state.syllabs : []
+    // delay activation by 3s
+    if (active === false && this.state.active === true) {
+      this.setState({ syllabs: [] })
 
-    if ((this.state.config.session !== 0) && (array.length === this.state.config.session)) {
+      this.timer = setTimeout(
+        () => { this.componentDidUpdate(null, { active: -1 }) },
+        3000
+      )
+
+      return;
+    }
+    
+    // deactivate if we touch config.session limit
+    if ((this.state.config.session !== 0) && (this.state.syllabs.length === this.state.config.session)) {
       this.setState({ active: false })
       return;
     }
 
-    this.setState({ syllabs: [...array, this.pick()] })
+    // add a new syllab to the session
+    this.setState({ syllabs: [...this.state.syllabs, this.pick()] })
     
+    // loop
     clearTimeout(this.timer);
-
     this.timer = setTimeout(
       () => { this.componentDidUpdate(null, { active: -1 }) },
       60000 / this.state.config.bpm
@@ -141,7 +155,7 @@ export default class App extends Component {
 
     return (
       <div className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' }>
-        { active ? <Letter key={ `${ Date.now() }` } syllab={ syllab } reveal={ config.reveal } timeout={ 60000 / config.bpm } /> : null }
+        { active && syllab.length ? <Letter key={ `${ Date.now() }` } syllab={ syllab } reveal={ config.reveal } timeout={ 60000 / config.bpm } /> : null }
         { !active && syllabs.length ? <Grid syllabs={ syllabs } hiragana={ config.hiragana } katakana={ config.katakana } /> : null }
 
         <Controls config={ config } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
