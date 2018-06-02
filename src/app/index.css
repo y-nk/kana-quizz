@@ -1,0 +1,31 @@
+.jqz {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #444;
+}
+
+.jqz .controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+}
+
+.jqz .buttons {
+  left: -100%;
+}
+
+.jqz .controls .settings {
+  height: 0;
+}
+
+.jqz .controls .settings.hidden {
+  left: 0;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0);
+}
+
+.jqz .controls .settings.visible {
+  left: -100%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, .25);
+}

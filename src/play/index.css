@@ -1,0 +1,28 @@
+.play, .stop {
+  display: inline-block;
+  margin: 1rem;
+  padding: .75rem;
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.play svg, .stop svg {
+  position: relative;
+  display: inline-block;
+  height: 1.25rem;
+  vertical-align: middle;
+
+  transform: scale(.6);
+  transition: transform .4s;
+}
+
+.play svg {
+  left: .1rem;
+}
+
+
+.play:hover svg, .stop:hover svg {
+  transform: scale(.7);
+}

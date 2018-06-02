@@ -1,0 +1,33 @@
+.group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.group + .group {
+  margin-top: 2em;
+}
+
+.group .title {
+  width: 100%;
+  margin-bottom: .5em;
+  padding-bottom: .25em;
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+  font-weight: bold;
+  text-align: right;
+}
+
+.group .title:empty {
+  display: none;
+}
+
+.group > * {
+  width: calc(50% - .25em);
+}
+
+.group > * {
+  margin-bottom: .5em;
+}
+
+.group > *:nth-child(even) {
+  margin-right: .5em;
+}

@@ -1,0 +1,21 @@
+.wheel {
+  display: inline-block;
+  margin: 1rem;
+  padding: .75rem;
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.wheel svg {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.25rem;
+
+  transition: transform .4s;
+}
+
+.wheel:hover svg {
+  transform: rotate(180deg);
+}

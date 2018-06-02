@@ -1,0 +1,28 @@
+.controls {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls .buttons {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.controls .buttons > * {
+  margin-left: 0;
+  background: rgba(255, 255, 255, .1);
+  transition: background .4s;
+}
+
+
+.controls .buttons > *:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.controls .settings {
+  flex: 1 0 auto;
+  margin-top: 0;
+}

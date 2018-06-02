@@ -1,0 +1,187 @@
+.grid {
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  overflow: scroll;
+  counter-reset: card;
+}
+
+.grid > div {
+  position: relative;
+  display: inline-block;
+  margin: .5rem;
+  padding: 1rem;
+  background: #fff;
+  font-size: 0;
+}
+
+.grid > div:after {
+  counter-increment: card;
+  content: counter(card);
+
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  color: #888;
+  font-size: .5rem;
+  text-align: center;
+}
+
+.grid .kana {
+  position: relative;
+  display: inline-block;
+  width:  125px;
+  height: 125px;
+  background-color: #dfdfdf;
+  background-position-y: -10px;
+  zoom: .8;
+}
+
+.grid .kana:after {
+  position: absolute;
+  content: ' ';
+  left: 17.5px;
+  top: 17.5px;
+  width:  90px;
+  height: 90px;
+  background-position-x: inherit;
+  background-position-y: inherit;
+  mix-blend-mode: multiply;
+}
+
+.grid .kana + .kana {
+  margin-left: 1rem;
+}
+
+.grid .roma {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: .5rem;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+
+.grid div[class*="-j"]  .kana:after,
+.grid div[class*="-ky"] .kana:after,
+.grid div[class*="-sy"] .kana:after,
+.grid div[class*="-ty"] .kana:after,
+.grid div[class*="-ny"] .kana:after,
+.grid div[class*="-hy"] .kana:after,
+.grid div[class*="-my"] .kana:after,
+.grid div[class*="-ry"] .kana:after,
+.grid div[class*="-gy"] .kana:after,
+.grid div[class*="-by"] .kana:after,
+.grid div[class*="-py"] .kana:after {
+  left: 0px;
+  width: 125px;
+}
+
+.grid div .hira:after {
+  background-image: url(https://www.nhk.or.jp/lesson/common/images/character_hira1.gif)
+}
+
+.grid div .kata:after {
+  background-image: url(https://www.nhk.or.jp/lesson/common/images/character_kata1.gif)
+}
+
+.grid div[class*="-g"]  .hira:after,
+.grid div[class*="-d"]  .hira:after,
+.grid div[class*="-z"]  .hira:after,
+.grid div[class*="-b"]  .hira:after,
+.grid div[class*="-p"]  .hira:after,
+.grid div[class*="-j"]  .hira:after,
+.grid div[class*="-ky"] .hira:after,
+.grid div[class*="-sy"] .hira:after,
+.grid div[class*="-ty"] .hira:after,
+.grid div[class*="-ny"] .hira:after,
+.grid div[class*="-hy"] .hira:after,
+.grid div[class*="-my"] .hira:after,
+.grid div[class*="-ry"] .hira:after,
+.grid div[class*="-gy"] .hira:after,
+.grid div[class*="-by"] .hira:after,
+.grid div[class*="-py"] .hira:after {
+  background-image: url(https://www.nhk.or.jp/lesson/common/images/character_hira2.gif)
+}
+
+.grid div[class*="-g"]  .kata:after,
+.grid div[class*="-d"]  .kata:after,
+.grid div[class*="-z"]  .kata:after,
+.grid div[class*="-b"]  .kata:after,
+.grid div[class*="-p"]  .kata:after,
+.grid div[class*="-j"]  .kata:after,
+.grid div[class*="-ky"] .kata:after,
+.grid div[class*="-sy"] .kata:after,
+.grid div[class*="-ty"] .kata:after,
+.grid div[class*="-ny"] .kata:after,
+.grid div[class*="-hy"] .kata:after,
+.grid div[class*="-my"] .kata:after,
+.grid div[class*="-ry"] .kata:after,
+.grid div[class*="-gy"] .kata:after,
+.grid div[class*="-by"] .kata:after,
+.grid div[class*="-py"] .kata:after {
+  background-image: url(https://www.nhk.or.jp/lesson/common/images/character_kata2.gif)
+}
+
+.grid div[class$="a"] .kana { background-position-x: -5px; }
+.grid div[class$="i"] .kana { background-position-x: -120px; }
+.grid div[class$="u"] .kana { background-position-x: -235px; }
+.grid div[class$="e"] .kana { background-position-x: -345px; }
+.grid div[class$="o"] .kana { background-position-x: -460px; }
+
+.grid div[class$="-ya"] .kana { background-position-x: -5px !important; }
+.grid div[class$="-yu"] .kana { background-position-x: -235px !important; }
+.grid div[class$="-yo"] .kana { background-position-x: -460px !important; }
+
+
+
+.grid div[class*="-k"] .kana { background-position-y: -155px; }
+.grid div[class*="-g"] .kana { background-position-y: -5px; }
+
+.grid div[class*="-s"] .kana { background-position-y: -300px; }
+.grid div[class*="-z"] .kana { background-position-y: -155px; }
+
+.grid div[class*="-t"] .kana { background-position-y: -445px; }
+.grid div[class*="-d"] .kana { background-position-y: -300px; }
+
+.grid div[class*="-n"] .kana { background-position-y: -592px; }
+
+.grid div[class*="-h"] .kana { background-position-y: -740px; }
+.grid div[class*="-b"] .kana { background-position-y: -445px; }
+.grid div[class*="-p"] .kana { background-position-y: -592px; }
+
+.grid div[class*="-m"] .kana { background-position-y: -885px; }
+
+.grid div[class*="-y"] .kana { background-position-y: -1030px; }
+
+.grid div[class*="-r"] .kana { background-position-y: -1175px; }
+
+.grid div[class*="-w"] .kana { background-position-y: -1325px; }
+
+
+.grid div[class$="ya"] .kana { background-position-x: -10px; }
+.grid div[class$="yu"] .kana { background-position-x: -225px; }
+.grid div[class$="yo"] .kana { background-position-x: -435px; }
+
+.grid div[class*="-ky"] .kana { background-position-y: -750px; }
+.grid div[class*="-gy"] .kana { background-position-y: -1775px; }
+
+.grid div[class*="-sy"] .kana { background-position-y: -900px; }
+.grid div[class*="-j"]  .kana { background-position-y: -1920px; }
+
+.grid div[class*="-ty"] .kana { background-position-y: -1045px; }
+
+.grid div[class*="-ny"] .kana { background-position-y: -1190px; }
+.grid div[class*="-hy"] .kana { background-position-y: -1335px; }
+.grid div[class*="-by"] .kana { background-position-y: -2060px; }
+.grid div[class*="-py"] .kana { background-position-y: -2210px; }
+.grid div[class*="-my"] .kana { background-position-y: -1480px; }
+.grid div[class*="-ry"] .kana { background-position-y: -1630px; }

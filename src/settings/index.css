@@ -1,0 +1,13 @@
+.settings {
+  position: relative;
+  min-width: 275px;
+  padding: 1em;
+  background: #fff;
+  outline: none;
+  transition: all .4s;
+  overflow: scroll;
+}
+
+.settings .slider {
+  width: 100% !important;
+}
