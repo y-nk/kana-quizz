@@ -44,6 +44,6 @@
 }
 
 .switch input:checked:after {
-  left: 2em;
+  left: 1.4rem;
   box-shadow: 0 .05em .25em rgba(0, 0, 0, .25);
 }
