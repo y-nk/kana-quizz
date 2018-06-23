@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
 
+import randomcolor from 'randomcolor';
+
 import Letter from '../letter';
 import Grid from '../grid';
 import Controls from '../controls';
@@ -53,6 +55,7 @@ export default class App extends Component {
         config = config ? JSON.parse(config) : { ...CONFIG }
 
     this.state = {
+      theme: randomcolor(),
       active: false,
       syllabs: [],
       config
@@ -72,18 +75,18 @@ export default class App extends Component {
 
     if (!safe) {
       let requirements = []
-      
+
       if (consonants.includes('w'))
         requirements = requirements.concat(['a', 'o']).filter((v, i, a) => a.indexOf(v) === i)
-      
+
       if (consonants.includes('y'))
         requirements = requirements.concat(['a', 'u', 'o']).filter((v, i, a) => a.indexOf(v) === i)
-      
+
       if (consonants.includes('d'))
         requirements = requirements.concat(['a', 'i', 'u', 'e', 'o']).filter((v, i, a) => a.indexOf(v) === i)
-      
+
       const combinations = vowels.filter(vowel => requirements.indexOf(vowel) !== -1).length;
-      
+
       if (combinations === 0)
         alert('the current configuration cannot generate combinations. please add consonants or vowels.')
     }
@@ -93,14 +96,14 @@ export default class App extends Component {
   }
 
   componentDidUpdate(props, { active, syllabs }) {
-    // prevent an endless componentDidUpdate<=>setState loop 
+    // prevent an endless componentDidUpdate<=>setState loop
     if (!this.state.active || (this.state.active === active)) {
       return;
     }
-    
+
     // delay activation by 3s
     if (active === false && this.state.active === true) {
-      this.setState({ syllabs: [] })
+      this.setState({ syllabs: [], theme: randomcolor() })
 
       this.timer = setTimeout(
         () => { this.componentDidUpdate(null, { active: -1 }) },
@@ -109,7 +112,7 @@ export default class App extends Component {
 
       return;
     }
-    
+
     // deactivate if we touch config.session limit
     if ((this.state.config.session !== 0) && (this.state.syllabs.length === this.state.config.session)) {
       this.setState({ active: false })
@@ -118,7 +121,7 @@ export default class App extends Component {
 
     // add a new syllab to the session
     this.setState({ syllabs: [...this.state.syllabs, this.pick()] })
-    
+
     // loop
     clearTimeout(this.timer);
     this.timer = setTimeout(
@@ -135,7 +138,7 @@ export default class App extends Component {
     const vowels = Object.entries({ ...this.state.config.vowels, ...this.state.config.extended }).filter(([k, v]) => v).map(([k, v]) => k)
 
     let c, v, s; // consonant, vowel, syllab
-  
+
     do {
       // build random syllab
       c = consonants[Math.floor(Math.random() * consonants.length)];
@@ -150,15 +153,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { active, syllabs, config } = this.state,
+    const { theme, active, syllabs, config } = this.state,
           syllab = syllabs.slice(-1);
 
     return (
-      <div className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' }>
+      <div className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' } style={{ '--theme': theme }}>
         { active && syllab.length ? <Letter key={ `${ Date.now() }` } syllab={ syllab } reveal={ config.reveal } timeout={ 60000 / config.bpm } /> : null }
         { !active && syllabs.length ? <Grid syllabs={ syllabs } hiragana={ config.hiragana } katakana={ config.katakana } /> : null }
 
-        <Controls config={ config } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
+        <Controls theme={ theme } config={ config } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
       </div>
     );
   }

@@ -22,6 +22,7 @@
   width: 300px;
   height: .25rem;
   background: #66bbff;
+  background: var(--theme, #66bbff);
   border: none;
   border-radius: .25rem;
 }

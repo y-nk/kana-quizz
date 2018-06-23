@@ -27,6 +27,7 @@
 
 .switch input:checked {
   background: #66bbff;
+  background: var(--theme, #66bbff);
 }
 
 .switch input:after {

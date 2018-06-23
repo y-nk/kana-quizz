@@ -7,10 +7,17 @@
   justify-content: center;
 
   color: #fff;
+  text-shadow: 2vmin 2vmin 0 #000;
   font-size: 40vmin;
+  font-family: 'Patua One', cursive;
+
+  -webkit-text-stroke-width: 1vmin;
+  -webkit-text-stroke-color: var(--theme);
 }
 
 .letter span {
+  position: relative;
+  top: -5vmin;
   opacity: 0;
   animation-name: reveal;
   animation-iteration-count: 1;

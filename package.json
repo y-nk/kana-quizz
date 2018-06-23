@@ -5,6 +5,7 @@
   "homepage": "http://myname.github.io/kana-quizz",
   "dependencies": {
     "fast-deep-equal": "^2.0.1",
+    "randomcolor": "^0.5.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"

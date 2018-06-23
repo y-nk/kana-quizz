@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
 .jqz {
   position: absolute;
   width: 100%;
   height: 100%;
   background: #444;
+  background: var(--theme, #444);
 }
 
 .jqz:after {
