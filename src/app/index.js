@@ -7,12 +7,15 @@ import Letter from '../letter';
 import Grid from '../grid';
 import Controls from '../controls';
 
+import equal from 'fast-deep-equal';
+
 const CONFIG = {
   session: 20,
   bpm: 10,
   reveal: .5,
   hiragana: true,
   katakana: true,
+  learning: true,
 
   vowels: {
     a: true,
@@ -47,6 +50,11 @@ const CONFIG = {
   },
 }
 
+const STATS = {
+  hira: {},
+  kata: {}
+}
+
 export default class App extends Component {
   constructor() {
     super();
@@ -54,19 +62,65 @@ export default class App extends Component {
     let config = localStorage.getItem('config')
         config = config ? JSON.parse(config) : { ...CONFIG }
 
+    let stats = localStorage.getItem('stats')
+        stats = stats ? JSON.parse(stats) : { ...STATS }
+
     this.state = {
       theme: randomcolor(),
       active: false,
       syllabs: [],
-      config
+      config,
+      stats
     }
 
     this.timer = -1;
   }
 
-  componentWillUpdate(props, { active, config }) {
-    if (this.state.config !== config)
+  componentDidMount() {
+    this._proxy = e => {
+      const { type, syllab, diff, inc } = e.detail;
+      const { stats } = this.state;
+
+      const stat = Object.assign(
+        { v:0, i:0 },
+        this.state.stats[type][syllab]
+      );
+
+      stat.v += diff;
+      stat.i += inc;
+
+      this.setState({ stats: {
+        ...stats,
+        [type]: {
+          ...stats[type],
+          [syllab]: stat
+        }
+      }})
+    }
+
+    this.refs.root.addEventListener('learn', this._proxy);
+  }
+
+  componentWillUnmount() {
+    this.refs.root.removeEventListener('learn', this._proxy);
+    delete this._proxy;
+  }
+
+  componentWillUpdate(props, { active, config, stats }) {
+    if (!equal(this.state.config, config)) {
       localStorage.setItem('config', JSON.stringify(config))
+      console.log('need to update config')
+    }
+
+    if (this.state.config.learning !== config.learning) {
+      this.setState({ stats: { ...STATS }})
+      return;
+    }
+
+    if (!equal(this.state.stats, stats)) {
+      localStorage.setItem('stats', JSON.stringify(stats))
+      console.log('need to update stats')
+    }
 
     const consonants = Object.entries(config.consonants).filter(([k, v]) => v).map(([k, v]) => k)
     const vowels = Object.entries({ ...config.vowels, ...config.extended }).filter(([k, v]) => v).map(([k, v]) => k)
@@ -103,7 +157,7 @@ export default class App extends Component {
 
     // delay activation by 3s
     if (active === false && this.state.active === true) {
-      this.setState({ syllabs: [], theme: randomcolor() })
+      this.setState({ syllabs: [] })
 
       this.timer = setTimeout(
         () => { this.componentDidUpdate(null, { active: -1 }) },
@@ -153,15 +207,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { theme, active, syllabs, config } = this.state,
+    const { theme, active, syllabs, config, stats } = this.state,
           syllab = syllabs.slice(-1);
 
     return (
-      <div className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' } style={{ '--theme': theme }}>
+      <div ref="root" className="jqz" data-watermark={ active ? `${syllabs.length} / ${config.session}` : '' } style={{ '--theme': theme }}>
         { active && syllab.length ? <Letter key={ `${ Date.now() }` } syllab={ syllab } reveal={ config.reveal } timeout={ 60000 / config.bpm } /> : null }
-        { !active && syllabs.length ? <Grid syllabs={ syllabs } hiragana={ config.hiragana } katakana={ config.katakana } /> : null }
+        { !active && syllabs.length ? <Grid syllabs={ syllabs } hiragana={ config.hiragana } katakana={ config.katakana } learning={ config.learning } /> : null }
 
-        <Controls theme={ theme } config={ config } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
+        <Controls theme={ theme } config={ config } stats={ stats } active={ active } onUpdate={ ({ active, config }) => { this.setState({ active, config }) } } />
       </div>
     );
   }

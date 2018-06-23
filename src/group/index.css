@@ -7,16 +7,25 @@
   margin-top: 2em;
 }
 
-.group .title {
+.group > .title {
   width: 100%;
   margin-bottom: .5em;
   padding-bottom: .25em;
   border-bottom: 1px solid rgba(0, 0, 0, .05);
   font-weight: bold;
   text-align: right;
+  cursor: pointer;
 }
 
-.group .title:empty {
+.group > .group > .title {
+  border: none;
+  font-size: .85em;
+  font-style: italic;
+  font-weight: normal;
+  opacity: .6;
+}
+
+.group > .title:empty {
   display: none;
 }
 
@@ -30,4 +39,13 @@
 
 .group > *:nth-child(even) {
   margin-right: .5em;
+}
+
+.group > .group {
+  width: 100%;
+  margin-right: 0;
+}
+
+.group .slider + .switch, .group .slider + .switch + .switch {
+  margin-top: .25em;
 }

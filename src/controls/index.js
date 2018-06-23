@@ -14,7 +14,7 @@ export default class Controls extends Component {
   }
 
   componentWillMount() {
-    this.componentWillReceiveProps(this.props)
+    this.componentWillReceiveProps(this.props, true)
   }
 
   componentWillReceiveProps({ active, config }) {
@@ -27,7 +27,8 @@ export default class Controls extends Component {
   }
 
   render() {
-    const { active, settings, config } = this.state;
+    const { stats } = this.props,
+          { active, settings, config } = this.state;
 
     return (
       <div className="controls">
@@ -35,11 +36,11 @@ export default class Controls extends Component {
           <Play active={ active } onClick={ () => this.setState({ active: !active, settings: false }) } />
           <Wheel onClick={ () => this.setState({ settings: !settings, active: false }) } />
         </div>
-      
-        <Settings className={ !active && settings ? 'visible' : 'hidden' } config={ config } onUpdate={ config => this.setState({ config }) } />
+
+        <Settings className={ !active && settings ? 'visible' : 'hidden' } config={ config } stats={ stats } onUpdate={ config => this.setState({ config }) } />
       </div>
     )
   }
-} 
+}
 
 

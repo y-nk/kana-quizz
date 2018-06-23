@@ -1,6 +1,8 @@
 .settings {
   position: relative;
   min-width: 275px;
+  width: 25vw;
+  max-width: 320px;
   padding: 1em;
   background: #fff;
   outline: none;
@@ -10,4 +12,11 @@
 
 .settings .slider {
   width: 100% !important;
+}
+
+@media screen and (max-width: 480px) {
+  .settings {
+    width: 100vw;
+    max-width: 480px;
+  }
 }

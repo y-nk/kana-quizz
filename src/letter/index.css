@@ -7,7 +7,7 @@
   justify-content: center;
 
   color: #fff;
-  text-shadow: 2vmin 2vmin 0 #000;
+  text-shadow: 2vmin 2vmin 0 rgba(0, 0, 0, .6);
   font-size: 40vmin;
   font-family: 'Patua One', cursive;
 

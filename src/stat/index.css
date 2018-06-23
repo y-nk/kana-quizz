@@ -1,0 +1,45 @@
+.stat {
+  display: flex;
+  align-items: center;
+}
+
+.stat > .title {
+  width: 2.5em;
+  padding-right: .5em;
+  text-align: right;
+  font-size: .75em;
+}
+
+.stat .track {
+  position: relative;
+  top: .1em;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: .25em;
+  background: #dfdfdf;
+  border-radius: .25em;
+}
+
+.stat .track .thumb {
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  display: block;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .4s, background .4s;
+}
+
+.stat .track .thumb.positive {
+  background: rgb(0, 180, 0);
+}
+
+.stat .track .thumb.neutral {
+  background: rgb(0, 0, 0, 0);
+}
+
+.stat .track .thumb.negative {
+  background: rgb(180, 0, 0);
+}
