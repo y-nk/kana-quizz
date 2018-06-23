@@ -4,7 +4,7 @@ import './index.css'
 export default class Kana extends Component {
   constructor() {
     super();
-    this.state = { value: 0 }
+    this.state = { value: 0, exit: false }
   }
 
   shouldComponentUpdate({ learning }, { value }) {
