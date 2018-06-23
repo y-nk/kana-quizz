@@ -21,10 +21,15 @@
 .slider input::-webkit-slider-runnable-track {
   width: 300px;
   height: .25rem;
-  background: #66bbff;
-  background: var(--theme, #66bbff);
+  background: #dfdfdf;
   border: none;
   border-radius: .25rem;
+  transition: background .4s;
+}
+
+.slider input:focus::-webkit-slider-runnable-track {
+  background: #66bbff;
+  background: var(--theme, #66bbff);
 }
 
 .slider input::-webkit-slider-thumb {
